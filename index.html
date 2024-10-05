@@ -57,39 +57,40 @@
         document.getElementById("calculateButton").addEventListener("click", function() {
             const yourName = document.getElementById("yourName").value.toLowerCase();
             const friendName = document.getElementById("friendName").value.toLowerCase();
-            const flames = ["F", "L", "A", "M", "E", "S"];
+            const flames = ["f", "l", "a", "m", "e", "s"];
 
             // Convert names to arrays
             let listYourName = yourName.split('');
             let listFriendName = friendName.split('');
 
             // Remove common letters
-            listYourName.forEach(letter => {
+            const popped = new Set();
+            for (let letter of listYourName.slice()) {
                 const index = listFriendName.indexOf(letter);
                 if (index !== -1) {
                     listFriendName.splice(index, 1);
                     listYourName.splice(listYourName.indexOf(letter), 1);
+                    popped.add(letter);
                 }
-            });
+            }
 
             // Count remaining letters
             const count = listYourName.length + listFriendName.length;
 
             // FLAMES logic
-            let index = 0;
             while (flames.length > 1) {
-                index = (index + count - 1) % flames.length;
+                const index = (count - 1) % flames.length;
                 flames.splice(index, 1);
             }
 
             // Determine relationship
             const relationshipMap = {
-                "F": "Friends",
-                "L": "Lovers",
-                "A": "Admirers",
-                "M": "Marriage",
-                "E": "Enemies",
-                "S": "Secret Lovers"
+                "f": "Friends",
+                "l": "Lovers",
+                "a": "Admirers",
+                "m": "Marriage",
+                "e": "Enemies",
+                "s": "Secret Lovers"
             };
 
             const result = relationshipMap[flames[0]];
