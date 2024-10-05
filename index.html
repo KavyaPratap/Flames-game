@@ -62,17 +62,19 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     let listYourName = yourName.split('');
     let listFriendName = friendName.split('');
 
-    // Remove common letters from both names
-    for (let i = 0; i < listYourName.length; i++) {
+    // Remove common letters from both names one by one
+    let i = 0;
+    while (i < listYourName.length) {
         const letter = listYourName[i];
         const index = listFriendName.indexOf(letter);
-        
+
         if (index !== -1) {
             // Remove the letter from both names
             listYourName.splice(i, 1);
             listFriendName.splice(index, 1);
-            // Decrement `i` since we removed an item from listYourName
-            i--;
+            // Don't increment i, because we've removed an element and need to check the current index again
+        } else {
+            i++; // Increment only when no common letter is found
         }
     }
 
