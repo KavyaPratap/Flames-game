@@ -64,23 +64,16 @@
             let listFriendName = friendName.split('');
 
             // Remove common letters
-            const letterCount = {};
-
-            for (let letter of listYourName) {
-                letterCount[letter] = (letterCount[letter] || 0) + 1;
-            }
-
-            for (let letter of listFriendName) {
-                if (letterCount[letter]) {
-                    letterCount[letter]--;
-                    if (letterCount[letter] === 0) {
-                        delete letterCount[letter];
-                    }
+            listYourName.forEach(letter => {
+                const index = listFriendName.indexOf(letter);
+                if (index !== -1) {
+                    listFriendName.splice(index, 1);
+                    listYourName.splice(listYourName.indexOf(letter), 1);
                 }
-            }
+            });
 
             // Count remaining letters
-            const count = Object.values(letterCount).reduce((a, b) => a + b, 0);
+            const count = listYourName.length + listFriendName.length;
 
             // FLAMES logic
             let index = 0;
