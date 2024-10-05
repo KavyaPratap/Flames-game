@@ -64,22 +64,27 @@
             let listFriendName = friendName.split('');
 
             // Remove common letters
-            const popped = new Set();
-            for (let letter of listYourName.slice()) {
-                const index = listFriendName.indexOf(letter);
-                if (index !== -1) {
-                    listFriendName.splice(index, 1);
-                    listYourName.splice(listYourName.indexOf(letter), 1);
-                    popped.add(letter);
+            const commonLetters = {};
+            for (let letter of listYourName) {
+                commonLetters[letter] = (commonLetters[letter] || 0) + 1;
+            }
+            for (let letter of listFriendName) {
+                if (commonLetters[letter]) {
+                    commonLetters[letter]--;
+                    if (commonLetters[letter] === 0) {
+                        delete commonLetters[letter];
+                    }
                 }
             }
 
             // Count remaining letters
-            const count = listYourName.length + listFriendName.length;
+            const count = listYourName.filter(letter => commonLetters[letter]).length +
+                           listFriendName.filter(letter => commonLetters[letter]).length;
 
             // FLAMES logic
+            let index = 0;
             while (flames.length > 1) {
-                const index = (count - 1) % flames.length;
+                index = (index + count - 1) % flames.length;
                 flames.splice(index, 1);
             }
 
