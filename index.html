@@ -63,14 +63,18 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     let listFriendName = friendName.split('');
 
     // Remove common letters from both names
-    listYourName = listYourName.filter(letter => {
+    for (let i = 0; i < listYourName.length; i++) {
+        const letter = listYourName[i];
         const index = listFriendName.indexOf(letter);
+        
         if (index !== -1) {
-            listFriendName.splice(index, 1); // Remove the letter from friendName
-            return false; // Remove the letter from yourName
+            // Remove the letter from both names
+            listYourName.splice(i, 1);
+            listFriendName.splice(index, 1);
+            // Decrement `i` since we removed an item from listYourName
+            i--;
         }
-        return true;
-    });
+    }
 
     // Count remaining letters
     const count = listYourName.length + listFriendName.length;
@@ -96,7 +100,6 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     const result = relationshipMap[flames[0]];
     document.getElementById("result").innerText = `The relationship is: ${result}`;
 });
-
 
     </script>
 </body>
