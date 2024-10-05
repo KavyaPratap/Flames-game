@@ -54,47 +54,48 @@
         <div id="result"></div>
     </div>
     <script>
-        document.getElementById("calculateButton").addEventListener("click", function() {
-            const yourName = document.getElementById("yourName").value.toLowerCase();
-            const friendName = document.getElementById("friendName").value.toLowerCase();
-            const flames = ["f", "l", "a", "m", "e", "s"];
+document.getElementById("calculateButton").addEventListener("click", function() {
+    const yourName = document.getElementById("yourName").value.trim().toLowerCase();
+    const friendName = document.getElementById("friendName").value.trim().toLowerCase();
+    const flames = ["f", "l", "a", "m", "e", "s"];
 
-            // Convert names to arrays
-            let listYourName = yourName.split('');
-            let listFriendName = friendName.split('');
+    // Convert names to arrays
+    let listYourName = yourName.split('');
+    let listFriendName = friendName.split('');
 
-            // Remove common letters
-            listYourName.forEach(letter => {
-                const index = listFriendName.indexOf(letter);
-                if (index !== -1) {
-                    listFriendName.splice(index, 1);
-                    listYourName.splice(listYourName.indexOf(letter), 1);
-                }
-            });
+    // Remove common letters
+    listYourName.forEach(letter => {
+        const index = listFriendName.indexOf(letter);
+        if (index !== -1) {
+            listFriendName.splice(index, 1);
+            listYourName.splice(listYourName.indexOf(letter), 1);
+        }
+    });
 
-            // Count remaining letters
-            const count = listYourName.length + listFriendName.length;
+    // Count remaining letters
+    const count = listYourName.length + listFriendName.length;
 
-            // FLAMES logic
-            let index = 0;
-            while (flames.length > 1) {
-                index = (index + count - 1) % flames.length;
-                flames.splice(index, 1);
-            }
+    // FLAMES logic
+    let index = 0;
+    while (flames.length > 1) {
+        index = (index + count - 1) % flames.length;
+        flames.splice(index, 1);
+    }
 
-            // Determine relationship
-            const relationshipMap = {
-                "f": "Friends",
-                "l": "Lovers",
-                "a": "Admirers",
-                "m": "Marriage",
-                "e": "Enemies",
-                "s": "Secret Lovers"
-            };
+    // Determine relationship
+    const relationshipMap = {
+        "f": "Friends",
+        "l": "Lovers",
+        "a": "Admirers",
+        "m": "Marriage",
+        "e": "Enemies",
+        "s": "Secret Lovers"
+    };
 
-            const result = relationshipMap[flames[0]];
-            document.getElementById("result").innerText = `The relationship is: ${result}`;
-        });
+    const result = relationshipMap[flames[0]];
+    document.getElementById("result").innerText = `The relationship is: ${result}`;
+});
+
     </script>
 </body>
 </html>
