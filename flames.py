@@ -46,7 +46,7 @@ elif result == "m":
     relationship = "Marriage"
 elif result == "e":
     relationship = "Enemies"
-else:
-    relationship = "Secret Lovers"
+#else:
+   # relationship = "Secret Lovers"
 
 print(f"The relationship is: {relationship}")
